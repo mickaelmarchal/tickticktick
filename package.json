@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/core": "0.0.28",
     "@angular/animations": "^5.1.0",
     "@angular/common": "^5.1.0",
     "@angular/compiler": "^5.1.0",
@@ -22,6 +23,11 @@
     "@angular/platform-browser-dynamic": "^5.1.0",
     "@angular/router": "^5.1.0",
     "@angular/service-worker": "^5.1.0",
+    "@clr/angular": "^0.11.1",
+    "@clr/icons": "^0.11.1",
+    "@clr/ui": "^0.11.1",
+    "@webcomponents/custom-elements": "^1.0.0",
+    "bootstrap": "^4.0.0-alpha.5",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
@@ -46,5 +52,12 @@
     "ts-node": "~3.2.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3"
+  },
+  "prettier": {
+    "cssEnable": [
+      "css",
+      "scss"
+    ],
+    "singleQuote": true
   }
 }

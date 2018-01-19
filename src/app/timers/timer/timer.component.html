@@ -1,0 +1,21 @@
+<div class="card">
+
+  <div class="card-header">
+    {{ timer.name }}
+  </div>
+
+  <div class="card-block">
+    <ng-container *ngIf='timer.running'>Running</ng-container>
+    <ng-container *ngIf='! timer.running'>Not running</ng-container>
+  </div>
+
+  <div class="card-footer">
+    <ng-container *ngIf='timer.running'>
+      <button class="btn btn-sm btn-link">Stop</button>
+    </ng-container>
+    <ng-container *ngIf='! timer.running'>
+      <button class="btn btn-sm btn-link">Start</button>
+    </ng-container>
+  </div>
+
+</div>
