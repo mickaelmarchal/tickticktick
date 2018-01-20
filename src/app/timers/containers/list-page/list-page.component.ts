@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { TimersService } from '../../core/services/timers.service';
+import { TimersService } from '../../services/timers.service';
 import { Observable } from 'rxjs/Observable';
-import { Timer } from '../../core/models/timer';
+import { Timer } from '../../models/timer';
 
 @Component({
   selector: 'app-timers-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  templateUrl: './list-page.component.html',
+  styleUrls: ['./list-page.component.scss']
 })
 export class ListComponent implements OnInit {
   public timers$: Observable<Timer[]>;
@@ -18,7 +18,7 @@ export class ListComponent implements OnInit {
   }
 
   public onAddTimer() {
-    console.log('addimter');
+    console.log('addTimer');
     this.timersService.addTimer({
       name: 'New Timer',
       color: '#000',
