@@ -1,7 +1,0 @@
-<div class="row">
-  <div class="col-md-2" *ngFor="let timer of timers$ | async">
-    <app-timer [timer]="timer"></app-timer>
-  </div>
-</div>
-
-<button class="btn" (click)="onAddTimer()">New Timer</button>

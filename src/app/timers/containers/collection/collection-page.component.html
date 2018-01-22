@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-2" *ngFor="let timer of timers$ | async">
+    <app-timer [timer]="timer"></app-timer>
+  </div>
+</div>
+
+<button class="btn" (click)="onAddTimer()">New Timer</button>
+
+<hr />
+
+<h2>Todo</h2>
+<ul>
+  <li>En fait, le state "collection" est un sous ensemble de toutes les entités chargées. Dans l'exemple ngRx "books" contenait
+    à la fois des résultats de recherche et les livres ajoutés à la colleciton. Mais pour nous, il n'y a que "timers". On
+    peut donc supprimer collection.</li>
+  <li>Faire le running / pas running</li>
+  <li>Mettre la stratégie d'update des components à onPush</li>
+  <li>Faire la suppression de timer</li>
+  <li>Voir comment ils font la répartition components / containers (dumb container, smart component ?)</li>
+</ul>

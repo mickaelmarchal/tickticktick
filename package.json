@@ -28,6 +28,7 @@
     "@clr/ui": "^0.11.1",
     "@ngrx/db": "^2.1.0",
     "@ngrx/effects": "^4.1.1",
+    "@ngrx/entity": "^4.1.1",
     "@ngrx/router-store": "^4.1.1",
     "@ngrx/store": "^4.1.1",
     "@ngrx/store-devtools": "^4.1.1",
