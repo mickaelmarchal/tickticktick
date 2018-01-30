@@ -1,22 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { SharedModule } from '../shared/shared.module';
 
+import { CollectionPageComponent } from './containers/collection/collection-page.component';
+import { EditPageComponent } from './containers/edit/edit-page.component';
+import { TimerComponent } from './components/timer/timer.component';
+import { EditComponent } from './components/edit/edit.component';
+import { TimersRoutingModule } from './timers-routing.module';
 import { TimerEffects } from './effects/timer';
 import { CollectionEffects } from './effects/collection';
-
-import { TimersRoutingModule } from './timers-routing.module';
-import { CollectionPageComponent } from './containers/collection/collection-page.component';
-
-import { TimerComponent } from './components/timer/timer.component';
-// import { TimersService } from './services/timers.service';
-
 import { reducers } from './reducers';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
     TimersRoutingModule,
     /**
      * StoreModule.forFeature is used for composing state
@@ -36,9 +39,12 @@ import { reducers } from './reducers';
      */
     EffectsModule.forFeature([TimerEffects, CollectionEffects])
   ],
-  declarations: [CollectionPageComponent, TimerComponent],
-  providers: [
-    /*TimersService */
-  ]
+  declarations: [
+    CollectionPageComponent,
+    EditPageComponent,
+    TimerComponent,
+    EditComponent
+  ],
+  providers: []
 })
 export class TimersModule {}

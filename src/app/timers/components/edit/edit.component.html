@@ -1,0 +1,15 @@
+<form [formGroup]="timerForm" novalidate>
+  <section class="form-block">
+    <label>Input Fields</label>
+    <div class="form-group">
+      <label for="timer-name" class="required">Name</label>
+      <input type="text" id="timer-name" placeholder="Timer name" size="35" required formControlName="name">
+    </div>
+    <div class="form-group">
+      <label for="timer-color" class="required">Color</label>
+      <input type="text" id="timer-color" placeholder="#f00" size="20" required formControlName="color">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+  </section>
+</form>

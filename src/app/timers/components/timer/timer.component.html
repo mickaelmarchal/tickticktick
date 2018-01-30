@@ -16,6 +16,8 @@
     <ng-container *ngIf='! timer.running'>
       <button class="btn btn-sm btn-link">Start</button>
     </ng-container>
+    <button class="btn btn-sm btn-link" (click)="remove.emit(timer)">Remove</button>
+    <button class="btn btn-sm btn-link" routerLink="/timers/edit/{{ timer.id }}">Edit</button>
   </div>
 
 </div>

@@ -2,7 +2,6 @@ import { createSelector } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Timer } from '../models/timer';
 import * as timer from '../actions/timer';
-import * as collection from '../actions/collection';
 
 /**
  * @ngrx/entity provides a predefined interface for handling
@@ -13,6 +12,8 @@ import * as collection from '../actions/collection';
  */
 export interface State extends EntityState<Timer> {
   selectedTimerId: string | null;
+  loaded: boolean;
+  loading: boolean;
 }
 
 /**
@@ -33,16 +34,14 @@ export const adapter: EntityAdapter<Timer> = createEntityAdapter<Timer>({
  * additional properties can also be defined.
  */
 export const initialState: State = adapter.getInitialState({
-  selectedTimerId: null
+  selectedTimerId: null,
+  loaded: false,
+  loading: false
 });
 
-export function reducer(
-  state = initialState,
-  action: timer.Actions | collection.Actions
-): State {
+export function reducer(state = initialState, action: timer.Actions): State {
   switch (action.type) {
-    case timer.SEARCH_COMPLETE:
-    case collection.LOAD_SUCCESS: {
+    case timer.LOAD_SUCCESS: {
       return {
         /**
          * The addMany function provided by the created adapter
@@ -52,13 +51,23 @@ export function reducer(
          * sort each record upon entry into the sorted array.
          */
         ...adapter.addMany(action.payload, state),
-        selectedTimerId: state.selectedTimerId
+        selectedTimerId: state.selectedTimerId,
+        loaded: true,
+        loading: false
       };
     }
 
-    case collection.ADD_TIMER_SUCCESS: {
+    case timer.ADD_SUCCESS:
+    case timer.REMOVE_FAIL: {
       return {
         ...adapter.addOne(action.payload, state)
+      };
+    }
+
+    case timer.REMOVE_SUCCESS:
+    case timer.ADD_FAIL: {
+      return {
+        ...adapter.removeOne(action.payload.id, state)
       };
     }
 
@@ -71,7 +80,8 @@ export function reducer(
          * exist already. If the collection is to be sorted, the adapter will
          * insert the new record into the sorted array.
          */
-        ...adapter.addOne(action.payload, state),
+        ...state,
+        loading: true,
         selectedTimerId: state.selectedTimerId
       };
     }
@@ -99,3 +109,7 @@ export function reducer(
  */
 
 export const getSelectedId = (state: State) => state.selectedTimerId;
+
+export const getLoaded = (state: State) => state.loaded;
+
+export const getLoading = (state: State) => state.loading;

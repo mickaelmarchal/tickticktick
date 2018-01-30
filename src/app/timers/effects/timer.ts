@@ -6,12 +6,14 @@ import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
 import { Injectable, InjectionToken, Optional, Inject } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
+import { Database } from '@ngrx/db';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Scheduler } from 'rxjs/Scheduler';
 import { async } from 'rxjs/scheduler/async';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
+import { defer } from 'rxjs/observable/defer';
 
 // import { GoogleTimersService } from '../../core/services/google-timers';
 import * as timer from '../actions/timer';
@@ -54,7 +56,67 @@ export class TimerEffects {
         .map((timers: Timer[]) => new timer.SearchComplete(timers))
         .catch(err => of(new timer.SearchError(err)));
     });
-*/
+   */
+
+  /**
+   * This effect does not yield any actions back to the store. Set
+   * `dispatch` to false to hint to @ngrx/effects that it should
+   * ignore any elements of this effect stream.
+   *
+   * The `defer` observable accepts an observable factory function
+   * that is called when the observable is subscribed to.
+   * Wrapping the database open call in `defer` makes
+   * effect easier to test.
+   */
+  @Effect({ dispatch: false })
+  openDB$: Observable<any> = defer(() => {
+    return this.db.open('tickticktick');
+  });
+
+  /**
+   * Load timers from IndexedDB
+   */
+  @Effect()
+  load$: Observable<Action> = this.actions$.ofType(timer.LOAD).switchMap(() =>
+    this.db
+      .query('timers')
+      .toArray()
+      .map((timers: Timer[]) => {
+        console.log('TIMER');
+        console.log(timers);
+        return new timer.LoadSuccess(timers);
+      })
+      .catch(error => of(new timer.LoadFail(error)))
+  );
+
+  /**
+   * Add timer
+   */
+  @Effect()
+  addTimer$: Observable<Action> = this.actions$
+    .ofType(timer.ADD)
+    .map((action: timer.Add) => action.payload)
+    .mergeMap(newTimer =>
+      this.db
+        .insert('timers', [newTimer])
+        .map(() => new timer.AddSuccess(newTimer))
+        .catch(() => of(new timer.AddFail(newTimer)))
+    );
+
+  /**
+   * Remove timer
+   */
+  @Effect()
+  removeTimer$: Observable<Action> = this.actions$
+    .ofType(timer.REMOVE)
+    .map((action: timer.Remove) => action.payload)
+    .mergeMap(removedTimer =>
+      this.db
+        .executeWrite('timers', 'delete', [removedTimer.id])
+        .map(() => new timer.RemoveSuccess(removedTimer))
+        .catch(() => of(new timer.RemoveFail(removedTimer)))
+    );
+
   constructor(
     private actions$: Actions,
     // private googleTimers: GoogleTimersService,
@@ -68,6 +130,7 @@ export class TimerEffects {
      */
     @Optional()
     @Inject(SEARCH_SCHEDULER)
-    private scheduler: Scheduler
+    private scheduler: Scheduler,
+    private db: Database
   ) {}
 }

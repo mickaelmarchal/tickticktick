@@ -25,7 +25,6 @@ import { AppComponent } from './core/containers/app/app.component';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    CommonModule,
     BrowserModule,
     ClarityModule,
 
