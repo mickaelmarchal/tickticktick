@@ -13,6 +13,9 @@ export const ADD_FAIL = '[Timer] Add Fail';
 export const REMOVE = '[Timer] Remove';
 export const REMOVE_SUCCESS = '[Timer] Remove Success';
 export const REMOVE_FAIL = '[Timer] Remove Fail';
+export const UPDATE = '[Timer] Update';
+export const UPDATE_SUCCESS = '[Timer] Update Success';
+export const UPDATE_FAIL = '[Timer] Update Fail';
 export const LOAD_SUCCESS = '[Timer] Load Success';
 export const LOAD_FAIL = '[Timer] Load Fail';
 
@@ -98,6 +101,28 @@ export class RemoveFail implements Action {
   constructor(public payload: Timer) {}
 }
 
+/**
+ * Update Timer Actions
+ */
+export class Update implements Action {
+  readonly type = UPDATE;
+
+  constructor(public payload: { id: string; changes: Timer }) {}
+}
+export class UpdateSuccess implements Action {
+  readonly type = UPDATE_SUCCESS;
+
+  constructor(public payload: { id: string; changes: Timer }) {}
+}
+export class UpdateFail implements Action {
+  readonly type = UPDATE_FAIL;
+
+  constructor(public payload: { id: string; changes: Timer }) {}
+}
+
+/**
+ * Select current timer Actions
+ */
 export class Select implements Action {
   readonly type = SELECT;
 
@@ -121,4 +146,7 @@ export type Actions =
   | Remove
   | RemoveSuccess
   | RemoveFail
+  | Update
+  | UpdateSuccess
+  | UpdateFail
   | Select;

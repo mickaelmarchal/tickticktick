@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CollectionPageComponent } from './containers/collection/collection-page.component';
+import { ListPageComponent } from './containers/list/list-page.component';
 import { EditPageComponent } from './containers/edit/edit-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CollectionPageComponent
+    component: ListPageComponent
   },
 
   {

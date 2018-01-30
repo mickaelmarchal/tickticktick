@@ -117,6 +117,20 @@ export class TimerEffects {
         .catch(() => of(new timer.RemoveFail(removedTimer)))
     );
 
+  /**
+   * Update timer
+   */
+  @Effect()
+  updateTimer$: Observable<Action> = this.actions$
+    .ofType(timer.UPDATE)
+    .map((action: timer.Update) => action.payload)
+    .mergeMap(updatedTimer =>
+      this.db
+        .executeWrite('timers', 'put', [updatedTimer.changes])
+        .map(() => new timer.UpdateSuccess(updatedTimer))
+        .catch(() => of(new timer.UpdateFail(updatedTimer)))
+    );
+
   constructor(
     private actions$: Actions,
     // private googleTimers: GoogleTimersService,

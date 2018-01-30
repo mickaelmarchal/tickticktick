@@ -71,6 +71,12 @@ export function reducer(state = initialState, action: timer.Actions): State {
       };
     }
 
+    case timer.UPDATE_SUCCESS: {
+      return {
+        ...adapter.updateOne(action.payload, state)
+      };
+    }
+
     case timer.LOAD: {
       return {
         /**

@@ -7,11 +7,11 @@ import * as fromTimers from '../../reducers';
 import * as timer from '../../actions/timer';
 
 @Component({
-  selector: 'app-timers-collection',
-  templateUrl: './collection-page.component.html',
-  styleUrls: ['./collection-page.component.scss']
+  selector: 'app-timers-list',
+  templateUrl: './list-page.component.html',
+  styleUrls: ['./list-page.component.scss']
 })
-export class CollectionPageComponent implements OnInit {
+export class ListPageComponent implements OnInit {
   timers$: Observable<Timer[]>;
 
   constructor(private store: Store<fromTimers.State>) {

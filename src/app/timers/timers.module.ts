@@ -3,8 +3,9 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from '../shared/shared.module';
 
-import { CollectionPageComponent } from './containers/collection/collection-page.component';
+import { ListPageComponent } from './containers/list/list-page.component';
 import { EditPageComponent } from './containers/edit/edit-page.component';
+import { EditSelectedPageComponent } from './containers/edit-selected/edit-selected-page.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { EditComponent } from './components/edit/edit.component';
 import { TimersRoutingModule } from './timers-routing.module';
@@ -35,8 +36,9 @@ import { reducers } from './reducers';
     EffectsModule.forFeature([TimerEffects, CollectionEffects])
   ],
   declarations: [
-    CollectionPageComponent,
+    ListPageComponent,
     EditPageComponent,
+    EditSelectedPageComponent,
     TimerComponent,
     EditComponent
   ],
