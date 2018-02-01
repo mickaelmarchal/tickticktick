@@ -13,7 +13,9 @@ import { Scheduler } from 'rxjs/Scheduler';
 import { async } from 'rxjs/scheduler/async';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
+import { tap } from 'rxjs/operators/tap';
 import { defer } from 'rxjs/observable/defer';
+import { Router } from '@angular/router';
 
 // import { GoogleTimersService } from '../../core/services/google-timers';
 import * as timer from '../actions/timer';
@@ -131,6 +133,16 @@ export class TimerEffects {
         .catch(() => of(new timer.UpdateFail(updatedTimer)))
     );
 
+  /**
+   * Timer Update success
+   */
+  @Effect({ dispatch: false })
+  updateTimerSuccess$ = this.actions$
+    .ofType(timer.UPDATE_SUCCESS)
+    // TODO refactor this to dispatch an action to the router.
+    // see https://github.com/ngrx/platform/blob/master/docs/router-store/api.md#effects
+    .map(() => this.router.navigate(['/timers']));
+
   constructor(
     private actions$: Actions,
     // private googleTimers: GoogleTimersService,
@@ -145,6 +157,7 @@ export class TimerEffects {
     @Optional()
     @Inject(SEARCH_SCHEDULER)
     private scheduler: Scheduler,
-    private db: Database
+    private db: Database,
+    private router: Router
   ) {}
 }
