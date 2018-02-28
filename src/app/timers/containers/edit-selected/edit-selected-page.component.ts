@@ -19,9 +19,16 @@ export class EditSelectedPageComponent {
     this.timer$ = store.select(fromTimers.getSelectedTimer);
   }
 
-  updateTimer(timerToUpdate: Timer) {
-    this.store.dispatch(
-      new timer.Update({ id: timerToUpdate.id, changes: timerToUpdate })
-    );
+  updateTimer(timerToUpdate: Timer | null) {
+    if (timerToUpdate.id) {
+      this.store.dispatch(
+        new timer.Update({ id: timerToUpdate.id, changes: timerToUpdate })
+      );
+    } else {
+      // TODO generate id in a better way
+      timerToUpdate.id = Math.round(Math.random() * 1000).toString();
+      timerToUpdate.running = false;
+      this.store.dispatch(new timer.Add(timerToUpdate));
+    }
   }
 }

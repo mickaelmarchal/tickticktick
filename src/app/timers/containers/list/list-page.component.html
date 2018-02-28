@@ -4,30 +4,20 @@
   </div>
 </div>
 
-<button class="btn" (click)="onAddTimer()">New Timer</button>
-
-<button class="btn" routerLink="/timers/edit">New Timer (form)</button>
-
+<div class="row">
+  <button class="btn" routerLink="/timers/create">New Timer</button>
+</div>
 <hr />
 
 <h2>Todo</h2>
-<ul>
+<ol>
+  <li>Terminer l'ajout de timer</li>
+  <li>Nettoyer, refactorer</li>
   <li>Retirer le store "collection", c'est un sous ensemble de toutes les entités chargées. Dans l'exemple ngRx "books" contenait
     à la fois des résultats de recherche et les livres ajoutés à la colleciton. Mais pour nous, il n'y a que "timers". On
     peut donc supprimer collection.</li>
-  <li>Finir edit :
-    <ul>
-      <li>
-        le composant "edit" doit etre un dumb component, juste en charge d'afficher le form
-      </li>
-      <li>Il faut créer une page équivalente à selected-book-page de l'exemple. C'est cette page qui apelle le form</li>
-      <li>Il faut renommer edit-page, c'est lequivalent de view-book-page</li>
-      <li>afficher le booking qu'on edite dans le form</li>
-      <li>Gérer la sauvegarde avec le add</li>
-    </ul>
-  </li>
-  <li>Faire le running / pas running</li>
-  <li>Mettre la stratégie d'update des components à onPush (il y en a dans l'exemple ngrx)</li>
-  <li>Faire la suppression de timer</li>
+  <li>Comprendre et mettre la stratégie d'update des components à onPush (il y en a dans l'exemple ngrx)</li>
   <li>Guard pour s'assurer qu'on ait bien le timer loadé quand on fait /edit/:id / https://toddmotto.com/preloading-ngrx-store-route-guards</li>
-</ul>
+  <li>Mettre en place les test unitaires (composants / effects / reducers)</li>
+  <li>Gérer l'ordre des timers avec un drag and drop</li>
+</ol>

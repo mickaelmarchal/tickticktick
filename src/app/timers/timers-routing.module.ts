@@ -10,6 +10,12 @@ const routes: Routes = [
   },
 
   {
+    path: 'create',
+    component: EditPageComponent
+    //    canActivate: [BookExistsGuard],
+  },
+
+  {
     path: 'edit/:id',
     component: EditPageComponent
     //    canActivate: [BookExistsGuard],

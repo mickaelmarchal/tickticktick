@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import * as fromTimers from '../../reducers';
 import * as timer from '../../actions/timer';
 import { ActivatedRoute } from '@angular/router/src/router_state';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-timers-edit',
@@ -22,13 +23,13 @@ export class EditComponent implements OnInit {
    *
    * More on 'smart' and 'presentational' components: https://gist.github.com/btroncone/a6e4347326749f938510#utilizing-container-components
    */
-  @Input() timer: Timer;
+  @Input() timer: Timer | null;
 
   @Output() update = new EventEmitter<Timer>();
 
   timerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.createForm();
   }
 
@@ -49,5 +50,9 @@ export class EditComponent implements OnInit {
       formValue.id = this.timer.id;
     }
     this.update.emit(formValue);
+  }
+
+  onCancel() {
+    this.router.navigate(['/timers']);
   }
 }

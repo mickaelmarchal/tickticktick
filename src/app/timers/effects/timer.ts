@@ -106,6 +106,16 @@ export class TimerEffects {
     );
 
   /**
+   * Timer Add success
+   */
+  @Effect({ dispatch: false }) // dispatch false to allow the effect to return no action
+  addTimerSuccess$ = this.actions$
+    .ofType(timer.ADD_SUCCESS)
+    // TODO refactor this to dispatch an action to the router.
+    // see https://github.com/ngrx/platform/blob/master/docs/router-store/api.md#effects
+    .map(() => this.router.navigate(['/timers']));
+
+  /**
    * Remove timer
    */
   @Effect()

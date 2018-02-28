@@ -29,7 +29,7 @@ export class EditPageComponent implements OnDestroy {
 
   constructor(store: Store<fromTimers.State>, route: ActivatedRoute) {
     this.actionsSubscription = route.params
-      .map(params => new timer.Select(params.id))
+      .map(params => new timer.Select(params.id || null))
       .subscribe(store);
   }
 

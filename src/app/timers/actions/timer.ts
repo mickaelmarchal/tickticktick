@@ -126,7 +126,7 @@ export class UpdateFail implements Action {
 export class Select implements Action {
   readonly type = SELECT;
 
-  constructor(public payload: string) {}
+  constructor(public payload: string | null) {}
 }
 
 /**
