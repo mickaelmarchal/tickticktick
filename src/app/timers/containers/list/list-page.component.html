@@ -1,5 +1,5 @@
-<div class="row">
-  <div class="col-md-2" *ngFor="let timer of timers$ | async">
+<div class="row" dnd-sortable-container [sortableData]="timers$ | async">
+  <div class="col-md-2" *ngFor="let timer of timers$ | async; let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="testDrop(timer, i)">
     <app-timer [timer]="timer" (remove)="removeTimer($event)"></app-timer>
   </div>
 </div>

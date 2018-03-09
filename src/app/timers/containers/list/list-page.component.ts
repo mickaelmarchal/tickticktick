@@ -3,6 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { Timer } from '../../models/timer';
 import { Store } from '@ngrx/store';
 
+import 'rxjs/add/operator/take';
+
 import * as fromTimers from '../../reducers';
 import * as timer from '../../actions/timer';
 
@@ -22,21 +24,47 @@ export class ListPageComponent implements OnInit {
     this.store.dispatch(new timer.Load());
   }
 
-  public onAddTimer() {
-    console.log('addTimer');
-    const id = Math.round(Math.random() * 1000).toString();
-    this.store.dispatch(
-      new timer.Add({
-        id: 'timer' + id,
-        name: 'Timer ' + id,
-        color: '#f00',
-        running: false
-      })
-    );
-  }
-
   removeTimer(timerToRemove: Timer) {
     console.log('Remove timer ' + timerToRemove.id);
     this.store.dispatch(new timer.Remove(timerToRemove));
+  }
+
+  testDrop(timerMoved: Timer, newPosition: number) {
+    this.timers$.take(1).subscribe(timers => {
+      const oldPosition = timerMoved.order;
+      const entitiesToUpdate = [];
+
+      timers.forEach(orgTimer => {
+        const entity = Object.assign({}, orgTimer);
+
+        if (entity.id === timerMoved.id) {
+          entity.order = newPosition;
+          entitiesToUpdate.push({
+            id: entity.id,
+            changes: entity
+          });
+        } else if (
+          entity.order >= Math.min(oldPosition, newPosition) &&
+          entity.order <= Math.max(oldPosition, newPosition)
+        ) {
+          // this entity is after the one we are moving
+          if (oldPosition < newPosition) {
+            entity.order--;
+          } else {
+            entity.order++;
+          }
+          entitiesToUpdate.push({
+            id: entity.id,
+            changes: entity
+          });
+        }
+      });
+
+      this.store.dispatch(
+        new timer.UpdateMulti({
+          changes: entitiesToUpdate
+        })
+      );
+    });
   }
 }

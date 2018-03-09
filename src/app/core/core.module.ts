@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DndModule } from 'ng2-dnd';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, DndModule.forRoot()],
   declarations: []
 })
 export class CoreModule {

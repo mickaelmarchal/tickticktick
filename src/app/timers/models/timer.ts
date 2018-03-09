@@ -1,8 +1,9 @@
 export interface Timer {
-  id: string;
+  id?: string;
   name: string;
   color: string;
   running: boolean;
+  order?: number;
 }
 
 export function generateMockTimer(): Timer {
@@ -10,6 +11,7 @@ export function generateMockTimer(): Timer {
     id: '1',
     name: 'My timer 1',
     color: '#f00',
-    running: false
+    running: false,
+    order: 0
   };
 }

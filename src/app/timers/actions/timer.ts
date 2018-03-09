@@ -16,6 +16,9 @@ export const REMOVE_FAIL = '[Timer] Remove Fail';
 export const UPDATE = '[Timer] Update';
 export const UPDATE_SUCCESS = '[Timer] Update Success';
 export const UPDATE_FAIL = '[Timer] Update Fail';
+export const UPDATEMULTI = '[Timer] UpdateMulti';
+export const UPDATEMULTI_SUCCESS = '[Timer] UpdateMulti Success';
+export const UPDATEMULTI_FAIL = '[Timer] UpdateMulti Fail';
 export const LOAD_SUCCESS = '[Timer] Load Success';
 export const LOAD_FAIL = '[Timer] Load Fail';
 
@@ -33,17 +36,17 @@ export const LOAD_FAIL = '[Timer] Load Fail';
 export class Search implements Action {
   readonly type = SEARCH;
 
-  constructor(public payload: string) {}
+  constructor(public payload: string) { }
 }
 export class SearchComplete implements Action {
   readonly type = SEARCH_COMPLETE;
 
-  constructor(public payload: Timer[]) {}
+  constructor(public payload: Timer[]) { }
 }
 export class SearchError implements Action {
   readonly type = SEARCH_ERROR;
 
-  constructor(public payload: string) {}
+  constructor(public payload: string) { }
 }
 
 /**
@@ -55,12 +58,12 @@ export class Load implements Action {
 export class LoadSuccess implements Action {
   readonly type = LOAD_SUCCESS;
 
-  constructor(public payload: Timer[]) {}
+  constructor(public payload: Timer[]) { }
 }
 export class LoadFail implements Action {
   readonly type = LOAD_FAIL;
 
-  constructor(public payload: any) {}
+  constructor(public payload: any) { }
 }
 
 /**
@@ -69,17 +72,17 @@ export class LoadFail implements Action {
 export class Add implements Action {
   readonly type = ADD;
 
-  constructor(public payload: Timer) {}
+  constructor(public payload: Timer) { }
 }
 export class AddSuccess implements Action {
   readonly type = ADD_SUCCESS;
 
-  constructor(public payload: Timer) {}
+  constructor(public payload: Timer) { }
 }
 export class AddFail implements Action {
   readonly type = ADD_FAIL;
 
-  constructor(public payload: Timer) {}
+  constructor(public payload: Timer) { }
 }
 
 /**
@@ -88,17 +91,17 @@ export class AddFail implements Action {
 export class Remove implements Action {
   readonly type = REMOVE;
 
-  constructor(public payload: Timer) {}
+  constructor(public payload: Timer) { }
 }
 export class RemoveSuccess implements Action {
   readonly type = REMOVE_SUCCESS;
 
-  constructor(public payload: Timer) {}
+  constructor(public payload: Timer) { }
 }
 export class RemoveFail implements Action {
   readonly type = REMOVE_FAIL;
 
-  constructor(public payload: Timer) {}
+  constructor(public payload: Timer) { }
 }
 
 /**
@@ -107,17 +110,36 @@ export class RemoveFail implements Action {
 export class Update implements Action {
   readonly type = UPDATE;
 
-  constructor(public payload: { id: string; changes: Timer }) {}
+  constructor(public payload: { id: string; changes: Timer }) { }
 }
 export class UpdateSuccess implements Action {
   readonly type = UPDATE_SUCCESS;
 
-  constructor(public payload: { id: string; changes: Timer }) {}
+  constructor(public payload: { id: string; changes: Timer }) { }
 }
 export class UpdateFail implements Action {
   readonly type = UPDATE_FAIL;
 
-  constructor(public payload: { id: string; changes: Timer }) {}
+  constructor(public payload: { id: string; changes: Timer }) { }
+}
+
+/**
+ * UpdateMulti Timer Actions
+ */
+export class UpdateMulti implements Action {
+  readonly type = UPDATEMULTI;
+
+  constructor(public payload: { changes: { id: string, changes: Timer }[] }) { }
+}
+export class UpdateMultiSuccess implements Action {
+  readonly type = UPDATEMULTI_SUCCESS;
+
+  constructor(public payload: { changes: { id: string, changes: Timer }[] }) { }
+}
+export class UpdateMultiFail implements Action {
+  readonly type = UPDATEMULTI_FAIL;
+
+  constructor(public payload: { changes: { id: string, changes: Timer }[] }) { }
 }
 
 /**
@@ -126,7 +148,7 @@ export class UpdateFail implements Action {
 export class Select implements Action {
   readonly type = SELECT;
 
-  constructor(public payload: string | null) {}
+  constructor(public payload: string | null) { }
 }
 
 /**
@@ -149,4 +171,7 @@ export type Actions =
   | Update
   | UpdateSuccess
   | UpdateFail
+  | UpdateMulti
+  | UpdateMultiSuccess
+  | UpdateMultiFail
   | Select;

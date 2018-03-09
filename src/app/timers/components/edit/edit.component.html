@@ -9,8 +9,13 @@
       <label for="timer-color" class="required">Color</label>
       <input type="text" id="timer-color" placeholder="#f00" size="20" required formControlName="color">
     </div>
+    <div class="form-group">
+      <label for="timer-order" class="required">Order</label>
+      <input type="number" id="timer-order" placeholder="1" size="3" min="O" required formControlName="order">
+    </div>
 
-    <button class="btn" (click)="onCancel()">Cancel</button>
     <button type="submit" class="btn btn-primary">Save</button>
+    <button class="btn" (click)="onCancel()">Cancel</button>
+
   </section>
 </form>

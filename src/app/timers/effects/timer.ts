@@ -98,6 +98,16 @@ export class TimerEffects {
   addTimer$: Observable<Action> = this.actions$
     .ofType(timer.ADD)
     .map((action: timer.Add) => action.payload)
+
+    // simulate getting a random id from backend
+    .map((newTimer: Timer) => {
+      const timerWithId = Object.assign({}, newTimer);
+      timerWithId.id = Math.floor((1 + Math.random()) * 0x100000000)
+        .toString(16)
+        .substring(1);
+      return timerWithId;
+    })
+
     .mergeMap(newTimer =>
       this.db
         .insert('timers', [newTimer])
@@ -169,5 +179,33 @@ export class TimerEffects {
     private scheduler: Scheduler,
     private db: Database,
     private router: Router
-  ) {}
+  ) { }
+
+  /**
+   * UpdateMulti timer
+   */
+  @Effect()
+  updateMultiTimer$: Observable<Action> = this.actions$
+    .ofType(timer.UPDATEMULTI)
+    .map((action: timer.UpdateMulti) => action.payload)
+    .mergeMap(payload => {
+      const changesToUpdate = [];
+      console.log(payload.changes);
+
+      payload.changes.forEach(element => {
+        console.log('rrr');
+        console.log(element.changes);
+        changesToUpdate.push(element.changes);
+      });
+
+      console.log('$$$$');
+      console.log(changesToUpdate);
+
+      return this.db
+        .executeWrite('timers', 'put', changesToUpdate)
+        .map(() => new timer.UpdateMultiSuccess(payload))
+        .catch(() => of(new timer.UpdateMultiFail(payload)));
+    }
+    );
+
 }

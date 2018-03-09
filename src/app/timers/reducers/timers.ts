@@ -26,7 +26,7 @@ export interface State extends EntityState<Timer> {
  */
 export const adapter: EntityAdapter<Timer> = createEntityAdapter<Timer>({
   selectId: (selectTimer: Timer) => selectTimer.id,
-  sortComparer: false
+  sortComparer: (a: Timer, b: Timer) => a.order - b.order
 });
 
 /** getInitialState returns the default initial state
@@ -74,6 +74,12 @@ export function reducer(state = initialState, action: timer.Actions): State {
     case timer.UPDATE_SUCCESS: {
       return {
         ...adapter.updateOne(action.payload, state)
+      };
+    }
+
+    case timer.UPDATEMULTI_SUCCESS: {
+      return {
+        ...adapter.updateMany(action.payload.changes, state)
       };
     }
 

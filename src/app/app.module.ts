@@ -84,4 +84,4 @@ import { AppComponent } from './core/containers/app/app.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

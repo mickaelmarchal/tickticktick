@@ -40,7 +40,8 @@ export class EditComponent implements OnInit {
   createForm() {
     this.timerForm = this.fb.group({
       name: ['', Validators.required],
-      color: ['', Validators.required]
+      color: ['', Validators.required],
+      order: ['', [Validators.required, Validators.min(0)]]
     });
   }
 
